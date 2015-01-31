@@ -16,12 +16,10 @@ namespace WeatherIndicator {
     }
 
     class YandexProvider : Provider {
-        private HashMap<string, int> city_list;
         public string city_name;
         public int city_id;
 
         public YandexProvider.for_city(string city_name) {
-            this.city_list = this.get_city_list();
             this.city_id = this.get_city_id(city_name);
             this.city_name = city_name;
         }
@@ -68,11 +66,13 @@ namespace WeatherIndicator {
         }
 
         private int get_city_id(string city_name) {
-            if (city_name in this.city_list) {
-                return this.city_list[city_name];
+            var city_list = this.get_city_list();
+
+            if (! city_list.has_key(city_name)) {
+                error("City does not exists");
             }
 
-            error("City does not exists");
+            return city_list[city_name];
         }
 
         private HashMap<string, int> get_city_list() {
