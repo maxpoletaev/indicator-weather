@@ -5,6 +5,7 @@ using Gee;
 
 namespace WeatherIndicator {
     struct Weather {
+        bool loaded;
         string weather_type;
         int temperature;
         string image;
@@ -31,18 +32,16 @@ namespace WeatherIndicator {
             Xml.Node* root = doc->get_root_element();
 
             if (root == null) {
-                // TODO: Error handling
+                return Weather() { loaded = false };
             }
 
             var fact_node = this.get_node_by_name(root, "fact");
 
-            var weather = Weather() {
+            return Weather() {
                 temperature = int.parse(this.get_node_by_name(fact_node, "temperature")->get_content()),
-                weather_type = this.get_node_by_name(fact_node, "weather_type")->get_content()
+                weather_type = this.get_node_by_name(fact_node, "weather_type")->get_content(),
+                loaded = true
             };
-
-            delete doc;
-            return weather;
         }
 
         private string get_weather_data() {
@@ -90,7 +89,6 @@ namespace WeatherIndicator {
                 }
             }
 
-            delete doc;
             return map;
         }
 

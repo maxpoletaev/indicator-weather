@@ -63,7 +63,11 @@ namespace WeatherIndicator {
         private void refresh() {
             debug("Refresh");
             var weather = this.provider.now();
-            this.indicator.label = weather.temperature.to_string() + "°C";
+
+            if (weather.loaded) {
+                var prefix = (weather.temperature > 0) ? "+" : "";
+                this.indicator.label = prefix + weather.temperature.to_string() + "°C";
+            }
         }
 
         private void action_settings() {
