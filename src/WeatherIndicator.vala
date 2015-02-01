@@ -42,6 +42,11 @@ namespace WeatherIndicator {
             menu.append(item_settings);
             item_settings.show();
 
+            var item_refresh = new Gtk.MenuItem.with_label("Refresh");
+            item_settings.activate.connect(this.action_refresh);
+            menu.append(item_refresh);
+            item_refresh.show();
+
             var item_close = new Gtk.MenuItem.with_label("Close");
             item_close.activate.connect(this.action_close);
             menu.append(item_close);
@@ -68,6 +73,10 @@ namespace WeatherIndicator {
                 var prefix = (weather.temperature > 0) ? "+" : "";
                 this.indicator.label = prefix + weather.temperature.to_string() + "°C";
             }
+        }
+
+        private void action_refresh() {
+            this.refresh();
         }
 
         private void action_settings() {
