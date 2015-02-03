@@ -89,12 +89,20 @@ namespace WeatherIndicator {
     }
 
     static int main(string[] args) {
-        if (args.length < 2) {
+        Gtk.init(ref args);
+
+        // TODO: Maybe use OptionContext?
+        // http://references.valadoc.org/#!api=glib-2.0/GLib.OptionContext
+
+        if (args.length > 1) {
+            var indicator = new WeatherIndicator(args[1]);
+
+            if (args.length == 3) {
+                indicator.refresh_interval = int.parse(args[2]);
+            }
+        } else {
             error("Define city name in first argument");
         }
-
-        Gtk.init(ref args);
-        new WeatherIndicator(args[1]);
 
         Gtk.main();
         return 0;
