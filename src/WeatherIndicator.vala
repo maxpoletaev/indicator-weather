@@ -29,7 +29,7 @@ namespace WeatherIndicator {
 
         private void init_indicator() {
             this.indicator = new Indicator(
-                this.settings_window.title, "stock_weather-snow",
+                this.settings_window.title, "weather-severe-alert",
                 IndicatorCategory.APPLICATION_STATUS
             );
 
@@ -72,8 +72,12 @@ namespace WeatherIndicator {
             var weather = this.provider.now();
 
             if (weather.loaded) {
+                this.indicator.icon_name = weather.icon;
                 var prefix = (weather.temperature > 0) ? "+" : "";
                 this.indicator.label = prefix + weather.temperature.to_string() + "°C";
+            } else {
+                this.indicator.icon_name = "weather-severe-alert";
+                this.indicator.label = null;
             }
         }
 

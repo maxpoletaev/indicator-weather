@@ -23,12 +23,36 @@ namespace WeatherIndicator.Providers {
             }
 
             var fact_node = this.get_node_by_name(root, "fact");
+            var icon_code = this.get_node_by_name(fact_node, "weather_condition")->get_prop("code");
 
             return Weather() {
                 temperature = int.parse(this.get_node_by_name(fact_node, "temperature")->get_content()),
                 weather_type = this.get_node_by_name(fact_node, "weather_type")->get_content(),
+                icon = this.decode_icon(icon_code),
                 loaded = true
             };
+        }
+
+        public string decode_icon(string icon) {
+            var icons = new HashMap<string, string>();
+
+            icons["overcast-and-light-snow"] = "weather-snow";
+            icons["overcast"] = "weather-overcast";
+            icons["partly-cloudy"] = "weather-few-clouds";
+            icons["cloudy"] = "weather-few-clouds";
+            icons["mostly-clear"] = "weather-clear";
+            icons["clear"] = "weather-clear";
+
+            var result = icons.has_key(icon) ? icons[icon] : "";
+            var time = new DateTime.now_local();
+
+            if (0 < time.get_hour() < 6) {
+                if (result == "weather-clear" || icon == "weather-few-clouds") {
+                    result += "-night";
+                }
+            }
+
+            return result;
         }
 
         private string get_weather_data() {
