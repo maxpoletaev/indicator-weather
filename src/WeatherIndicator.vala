@@ -3,6 +3,8 @@ using GLib;
 using Gtk;
 
 namespace WeatherIndicator {
+    using Providers;
+
     class SettingsWindow : Gtk.Window {
         public SettingsWindow() {
             this.title = "Weather Indicator Settings";
@@ -27,7 +29,7 @@ namespace WeatherIndicator {
 
         private void init_indicator() {
             this.indicator = new Indicator(
-                this.settings_window.title, "indicator-weather",
+                this.settings_window.title, "stock_weather-snow",
                 IndicatorCategory.APPLICATION_STATUS
             );
 
