@@ -45,7 +45,7 @@ namespace WeatherIndicator {
             item_settings.show();
 
             var item_refresh = new Gtk.MenuItem.with_label("Refresh");
-            item_settings.activate.connect(this.action_refresh);
+            item_refresh.activate.connect(this.action_refresh);
             menu.append(item_refresh);
             item_refresh.show();
 
