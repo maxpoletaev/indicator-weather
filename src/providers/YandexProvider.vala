@@ -35,17 +35,23 @@ namespace WeatherIndicator.Providers {
 
         public string decode_icon(string icon) {
             var icons = new HashMap<string, string>();
-
             icons["overcast-and-light-snow"] = "weather-snow";
+            icons["cloudy-and-snow-showers"] = "weather-snow";
             icons["overcast"] = "weather-overcast";
             icons["partly-cloudy"] = "weather-few-clouds";
             icons["cloudy"] = "weather-few-clouds";
             icons["mostly-clear"] = "weather-clear";
             icons["clear"] = "weather-clear";
 
-            var result = icons.has_key(icon) ? icons[icon] : "";
-            var time = new DateTime.now_local();
+            string result;
+            if (icons.has_key(icon)) {
+                result = icons[icon];
+            } else {
+                debug("Icon does not decoded: " + icon);
+                result = "";
+            }
 
+            var time = new DateTime.now_local();
             if (0 < time.get_hour() < 6) {
                 if (result == "weather-clear" || icon == "weather-few-clouds") {
                     result += "-night";
