@@ -1,0 +1,13 @@
+<schemalist>
+  <schema id="org.apps.indicator-weather" path="/org/apps/indicator-weather/" gettext-domain="indicator-weather">
+
+    <key name="location" type="s">
+      <default>Москва</default>
+    </key>
+
+    <key name="refresh-interval" type="i">
+      <default>30</default>
+    </key>
+
+  </schema>
+</schemalist>
