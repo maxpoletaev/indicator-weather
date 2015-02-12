@@ -37,11 +37,13 @@ namespace WeatherIndicator.Providers {
             var icons = new HashMap<string, string>();
             icons["overcast-and-light-snow"] = "weather-snow";
             icons["cloudy-and-snow-showers"] = "weather-snow";
+            icons["cloudy-and-light-snow"] = "weather-snow";
             icons["overcast"] = "weather-overcast";
             icons["partly-cloudy"] = "weather-few-clouds";
             icons["cloudy"] = "weather-few-clouds";
             icons["mostly-clear"] = "weather-clear";
             icons["clear"] = "weather-clear";
+            icons["overcast-and-light-wet-snow"] = "weather-showers-scattered";
 
             string result;
             if (icons.has_key(icon)) {
